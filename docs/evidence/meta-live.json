@@ -1,0 +1,198 @@
+{
+  "application_version": "0.1.0",
+  "contract": {
+    "domain": "Finite lists of Refal terms, including empty lists and arbitrarily nested brackets.",
+    "fingerprint": "7a99fe36db956e251a4f4f7245e90096e9b182fd3f6be3b0695a9c2626995664",
+    "id": "append_three",
+    "instruction": "Rewrite the left-associated concatenation as a right-associated expression. Preserve every element, its order, and nested brackets. Return only the candidate RHS using Append and the declared lists.",
+    "pattern": "(e.A) (e.B) (e.C)",
+    "proof_scope": "Refal Supersystem equivalence on this restricted expression language and fixed input domain. This is a research engine's proof result, not certification of arbitrary programs. Tests and reduction counts are separate evidence.",
+    "reference": "<Append <Append (e.A) (e.B)> (e.C)>",
+    "requirements": [
+      "Only the candidate expression may change; the contract and helpers are fixed.",
+      "The requested structural transformation must be present.",
+      "Strict compiler checks and all independent execution tests must pass.",
+      "Symbolic equivalence must be proved with every branch closed inside the budget."
+    ],
+    "title": "Reassociate three-list concatenation",
+    "variables": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  "engine_revision": "c8f95421350b6d7d50a01e83278da4a33fae3b61",
+  "run": {
+    "attempts": [
+      {
+        "candidate": "<Append (e.A) <Append (e.B) (e.C)>>",
+        "explanation": "Right-associates concatenation: Append A to the result of Append B C, preserving order and nesting by associativity of Append.",
+        "feedback": "{\"boundary\":{\"details\":[\"Parsed and structurally restricted to total list expressions and the fixed Append helper.\"],\"passed\":true},\"compiler\":{\"details\":[\"note: sentence of `Go` has 3 `e.`-variables in its pattern; matching may backtrack proportionally to the argument length to the power 3\",\"note: sentence of `Reference` has 3 `e.`-variables in its pattern; matching may backtrack proportionally to the argument length to the power 3\",\"note: sentence of `Candidate` has 3 `e.`-variables in its pattern; matching may backtrack proportionally to the argument length to the power 3\",\"note: sentence of `Append` has 2 `e.`-variables in its pattern; matching may backtrack proportionally to the argument length to the power 2\",\"note: sentence of `Append-Contents` has 2 `e.`-variables in its pattern; matching may backtrack proportionally to the argument length to the power 2\"],\"passed\":true},\"contract_fingerprint\":\"7a99fe36db956e251a4f4f7245e90096e9b182fd3f6be3b0695a9c2626995664\",\"decision\":\"accepted\",\"proof\":{\"budget\":5000,\"complete\":true,\"leaves\":[{\"ancestor\":null,\"depth\":1,\"kind\":\"reflexive\",\"left\":null,\"right\":null},{\"ancestor\":0,\"depth\":1,\"kind\":\"folded\",\"left\":null,\"right\":null},{\"ancestor\":0,\"depth\":1,\"kind\":\"folded\",\"left\":null,\"right\":null}],\"steps\":34,\"verdict\":\"proved\"},\"reason\":\"Boundary, transformation, strict checks, execution tests, and symbolic equivalence all passed.\",\"tests\":{\"counterexamples\":[],\"passed\":216,\"total\":216},\"transformation\":{\"details\":[\"The requested structural transformation is present.\"],\"passed\":true}}",
+        "generation_ms": 3757,
+        "number": 1,
+        "provenance": "Live Meta API · muse-wonder-1.0",
+        "usage": {
+          "completion_tokens": 267,
+          "estimated_cost_usd": 0.007348,
+          "prompt_tokens": 502,
+          "total_tokens": 769
+        },
+        "verification": {
+          "boundary": {
+            "details": [
+              "Parsed and structurally restricted to total list expressions and the fixed Append helper."
+            ],
+            "passed": true
+          },
+          "candidate": "<Append (e.A) <Append (e.B) (e.C)>>",
+          "compiler": {
+            "details": [
+              "note: sentence of `Go` has 3 `e.`-variables in its pattern; matching may backtrack proportionally to the argument length to the power 3",
+              "note: sentence of `Reference` has 3 `e.`-variables in its pattern; matching may backtrack proportionally to the argument length to the power 3",
+              "note: sentence of `Candidate` has 3 `e.`-variables in its pattern; matching may backtrack proportionally to the argument length to the power 3",
+              "note: sentence of `Append` has 2 `e.`-variables in its pattern; matching may backtrack proportionally to the argument length to the power 2",
+              "note: sentence of `Append-Contents` has 2 `e.`-variables in its pattern; matching may backtrack proportionally to the argument length to the power 2"
+            ],
+            "passed": true
+          },
+          "contract_fingerprint": "7a99fe36db956e251a4f4f7245e90096e9b182fd3f6be3b0695a9c2626995664",
+          "decision": "accepted",
+          "elapsed_ms": 45,
+          "engine_revision": "c8f95421350b6d7d50a01e83278da4a33fae3b61",
+          "proof": {
+            "budget": 5000,
+            "complete": true,
+            "leaves": [
+              {
+                "ancestor": null,
+                "depth": 1,
+                "kind": "reflexive",
+                "left": null,
+                "right": null
+              },
+              {
+                "ancestor": 0,
+                "depth": 1,
+                "kind": "folded",
+                "left": null,
+                "right": null
+              },
+              {
+                "ancestor": 0,
+                "depth": 1,
+                "kind": "folded",
+                "left": null,
+                "right": null
+              }
+            ],
+            "report": "equivalence: Reference = Candidate\n  steps: 34\n  complete: yes\n  leaves: 3\n    reflexive (depth 1)\n    folded (depth 1, ancestor 0)\n    folded (depth 1, ancestor 0)\n  verdict: proved\n",
+            "steps": 34,
+            "verdict": "proved"
+          },
+          "reason": "Boundary, transformation, strict checks, execution tests, and symbolic equivalence all passed.",
+          "source": "$ENTRY Go { (e.A) (e.B) (e.C) = <Candidate (e.A) (e.B) (e.C)>; }\nReference { (e.A) (e.B) (e.C) = <Append <Append (e.A) (e.B)> (e.C)>; }\nCandidate { (e.A) (e.B) (e.C) = <Append (e.A) <Append (e.B) (e.C)>>; }\n\nAppend {\n  (e.A) (e.B) = (<Append-Contents (e.A) (e.B)>);\n}\nAppend-Contents {\n  () (e.B) = e.B;\n  (t.H e.T) (e.B) = t.H <Append-Contents (e.T) (e.B)>;\n}\n",
+          "tests": {
+            "candidate_steps": 1656,
+            "cases": [
+              {
+                "actual": "()",
+                "candidate_steps": 5,
+                "expected": "()",
+                "input": "() () ()",
+                "name": "case-0001",
+                "passed": true,
+                "reference_steps": 5
+              },
+              {
+                "actual": "('a')",
+                "candidate_steps": 6,
+                "expected": "('a')",
+                "input": "('a') () ()",
+                "name": "case-0002",
+                "passed": true,
+                "reference_steps": 7
+              },
+              {
+                "actual": "('b' 'a')",
+                "candidate_steps": 7,
+                "expected": "('b' 'a')",
+                "input": "('b' 'a') () ()",
+                "name": "case-0003",
+                "passed": true,
+                "reference_steps": 9
+              },
+              {
+                "actual": "(())",
+                "candidate_steps": 6,
+                "expected": "(())",
+                "input": "(()) () ()",
+                "name": "case-0004",
+                "passed": true,
+                "reference_steps": 7
+              },
+              {
+                "actual": "(('x' (7)))",
+                "candidate_steps": 6,
+                "expected": "(('x' (7)))",
+                "input": "(('x' (7))) () ()",
+                "name": "case-0005",
+                "passed": true,
+                "reference_steps": 7
+              },
+              {
+                "actual": "(Node 42 'z')",
+                "candidate_steps": 8,
+                "expected": "(Node 42 'z')",
+                "input": "(Node 42 'z') () ()",
+                "name": "case-0006",
+                "passed": true,
+                "reference_steps": 11
+              }
+            ],
+            "oracle": "Independent Rust concatenation of list contents; all combinations of six declared empty, atomic, multi-element and nested samples.",
+            "passed": 216,
+            "reference_steps": 1944,
+            "total": 216
+          },
+          "transformation": {
+            "details": [
+              "The requested structural transformation is present."
+            ],
+            "passed": true
+          }
+        }
+      }
+    ],
+    "cancel_requested": false,
+    "contract_fingerprint": "7a99fe36db956e251a4f4f7245e90096e9b182fd3f6be3b0695a9c2626995664",
+    "created_at": 1793706466927,
+    "decision": "accepted",
+    "error": null,
+    "events": [
+      {
+        "at_ms": 1793706466927,
+        "message": "Task contract frozen; acceptance policy is outside model control."
+      },
+      {
+        "at_ms": 1793706466927,
+        "message": "Meta is generating candidate 1"
+      },
+      {
+        "at_ms": 1793706470685,
+        "message": "Checking candidate 1 with the Refal engine"
+      },
+      {
+        "at_ms": 1793706470731,
+        "message": "Candidate 1: accepted; all required evidence passed"
+      }
+    ],
+    "finished_at": 1793706470731,
+    "id": "e5065b88-e367-4ad7-b24e-6e889c540ff9",
+    "phase": "Run complete",
+    "provider": "meta",
+    "scenario": "repair",
+    "status": "completed",
+    "task": "append_three"
+  },
+  "schema_version": 1
+}

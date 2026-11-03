@@ -18,6 +18,12 @@ coverage/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+*.tsbuildinfo
+playwright-report/
+test-results/
+
+# Optional, independent checkout of the existing engine
+/REFAL-SUPERSYSTEM/
 
 # Local execution records
 /runs/
